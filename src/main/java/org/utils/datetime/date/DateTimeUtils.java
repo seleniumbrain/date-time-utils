@@ -28,7 +28,7 @@ import java.util.*;
  * <p>The class uses a `FormatOptions` inner class to encapsulate locale, time zone, and offset settings.
  * Default options can be set through constructors, and specific options can be passed to methods as needed.
  *
- * <h3>Note:</h3>
+ * <h2>Note:</h2>
  * <ul>
  *   <li>Ensure date strings are in supported formats as defined in `DateTimeFormat` enum.</li>
  *   <li>Null or empty date strings will result in default or zero values.</li>
