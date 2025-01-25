@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.utils.datetime.date.DateTimeFormat;
 import org.utils.datetime.date.DateTimeUtils;
+import org.utils.datetime.date.TimeZoneId;
 
 import java.time.*;
 import java.util.Locale;
@@ -59,6 +60,7 @@ class DateTimeUtilsTest {
     @Test
     void testFormatTo() {
         assertEquals("2024-12-20", utils.formatTo("12/20/2024 02:30:00 PM", DateTimeFormat.FORMAT_ISO_LOCAL_DATE));
+        assertEquals("2024-12-20", utils.formatTo("20-12-2024", DateTimeFormat.FORMAT_ISO_LOCAL_DATE));
         assertEquals("invalid-date", utils.formatTo("invalid-date", DateTimeFormat.FORMAT_ISO_LOCAL_DATE));
     }
 
@@ -314,5 +316,21 @@ class DateTimeUtilsTest {
     void calculateWorkdaysBetween_withCustomWeekends() {
         Set<DayOfWeek> customWeekends = Set.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
         assertEquals(4, utils.calculateWorkdaysBetween("2024-12-20", "2024-12-25", customWeekends));
+    }
+
+    @Test
+    public void testEqual() {
+        DateTimeUtils.FormatOptions options = DateTimeUtils.FormatOptions.builder()
+                .locale(Locale.US)
+                .zoneId(ZoneId.of("UTC")) // Use the desired time zone
+                .zoneOffset(ZoneOffset.UTC) // Use the desired offset
+                .build();
+        DateTimeUtils utils = new DateTimeUtils(options);
+        assertTrue(utils.isDateEqualTo("1992-05-03T12:00:00", "03-05-1992"));
+        String date1 = utils.formatTo("2000-08-04T12:00:00", DateTimeFormat.FORMAT_ISO_LOCAL_DATE);
+        String date2 = utils.formatTo("04-08-2000", DateTimeFormat.FORMAT_ISO_LOCAL_DATE);
+        System.out.println(date1);
+        System.out.println(date2);
+        assertTrue(utils.isDateEqualTo("2024-12-20", "2024-12-20T14:30:00+05:30"));
     }
 }

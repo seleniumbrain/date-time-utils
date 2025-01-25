@@ -42,7 +42,13 @@ import java.util.*;
  * <h4>Positive Examples:</h4>
  * <pre>
  * {@code
- * DateTimeUtils utils = new DateTimeUtils(Locale.US, ZoneId.of("America/New_York"));
+ * DateTimeUtils.FormatOptions options = DateTimeUtils.FormatOptions.builder()
+ *                 .locale(Locale.US)
+ *                 .zoneId(ZoneId.of("UTC")) // Use the desired time zone
+ *                 .zoneOffset(ZoneOffset.UTC) // Use the desired offset
+ *                 .build();
+ * DateTimeUtils utils = new DateTimeUtils(options);
+ *
  * String formattedDate = utils.formatTo("2024-12-20 14:30:00", DateTimeFormat.FORMAT_US_SHORT_DATE);
  * System.out.println(formattedDate); // Output: 12/20/2024
  *
@@ -57,7 +63,6 @@ import java.util.*;
  * <h4>Negative Examples:</h4>
  * <pre>
  * {@code
- * DateTimeUtils utils = new DateTimeUtils(Locale.US, ZoneId.of("America/New_York"));
  * String formattedDate = utils.formatTo("invalid-date", DateTimeFormat.FORMAT_US_SHORT_DATE);
  * System.out.println(formattedDate); // Output: invalid-date
  *
@@ -72,7 +77,6 @@ import java.util.*;
  * <h4>Edge Case Examples:</h4>
  * <pre>
  * {@code
- * DateTimeUtils utils = new DateTimeUtils(Locale.US, ZoneId.of("America/New_York"));
  * String formattedDate = utils.formatTo("", DateTimeFormat.FORMAT_US_SHORT_DATE);
  * System.out.println(formattedDate); // Output: ""
  *
@@ -163,6 +167,10 @@ public class DateTimeUtils {
                 .zoneId(zoneId)
                 .zoneOffset(zoneOffset)
                 .build();
+    }
+
+    public DateTimeUtils(FormatOptions options) {
+        this.defaultOptions = options;
     }
 
     public DateTimeUtils setDefaultOptions(FormatOptions options) {
@@ -629,8 +637,8 @@ public class DateTimeUtils {
      * </pre>
      */
     public boolean idDateTimeEqualTo(String dateStr1, String dateStr2) {
-        String dateTime1 = this.formatTo(dateStr1, DateTimeFormat.FORMAT_ISO_LOCAL_DATE_TIME);
-        String dateTime2 = this.formatTo(dateStr2, DateTimeFormat.FORMAT_ISO_LOCAL_DATE_TIME);
+        String dateTime1 = this.formatTo(dateStr1, DateTimeFormat.FORMAT_ISO_LOCAL_DATE_TIME24hrs);
+        String dateTime2 = this.formatTo(dateStr2, DateTimeFormat.FORMAT_ISO_LOCAL_DATE_TIME24hrs);
         return Objects.equals(dateTime1, dateTime2);
     }
 
@@ -1025,5 +1033,14 @@ public class DateTimeUtils {
             return Optional.empty();
         }
         return Optional.empty();
+    }
+
+    public static void main(String[] args) {
+        // assertTrue(utils.isDateEqualTo("1992-05-03'T'13:00:00", "03-May-1992'T'13:00:00"));
+        DateTimeUtils utils = new DateTimeUtils();
+        System.out.println(utils.getFormatOf("1992-05-03T12:00:00"));
+        System.out.println(utils.formatTo("1992-05-03T12:00:00", DateTimeFormat.FORMAT_ISO_LOCAL_DATE));
+        System.out.println(utils.getFormatOf("03-05-1992"));
+        System.out.println(utils.formatTo("03-05-1992", DateTimeFormat.FORMAT_ISO_LOCAL_DATE));
     }
 }

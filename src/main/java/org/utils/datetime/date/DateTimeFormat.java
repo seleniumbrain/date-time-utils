@@ -12,9 +12,12 @@ public enum DateTimeFormat {
 
     // ISO 8601 Formats
     FORMAT_ISO_LOCAL_DATE("yyyy-MM-dd"), // Example: 2024-12-20
-    FORMAT_ISO_LOCAL_DATE_TIME("yyyy-MM-dd'T'HH:mm:ss"), // Example: 2024-12-20T14:30:00
-    FORMAT_ISO_OFFSET_DATE_TIME("yyyy-MM-dd'T'HH:mm:ssXXX"), // Example: 2024-12-20T14:30:00+05:30
-    FORMAT_ISO_INSTANT("yyyy-MM-dd'T'HH:mm:ss'Z'"), // Example: 2024-12-20T14:30:00Z
+    FORMAT_ISO_LOCAL_DATE_TIME12hrs("yyyy-MM-dd'T'hh:mm:ss"), // Example: 2024-12-20T14:30:00
+    FORMAT_ISO_LOCAL_DATE_TIME24hrs("yyyy-MM-dd'T'HH:mm:ss"), // Example: 2024-12-20T14:30:00
+    FORMAT_ISO_OFFSET_DATE_TIME12hrs("yyyy-MM-dd'T'hh:mm:ssXXX"), // Example: 2024-12-20T14:30:00+05:30
+    FORMAT_ISO_OFFSET_DATE_TIME24hrs("yyyy-MM-dd'T'HH:mm:ssXXX"), // Example: 2024-12-20T14:30:00+05:30
+    FORMAT_ISO_INSTANT12hrs("yyyy-MM-dd'T'hh:mm:ss'Z'"), // Example: 2024-12-20T14:30:00Z
+    FORMAT_ISO_INSTANT24hrs("yyyy-MM-dd'T'HH:mm:ss'Z'"), // Example: 2024-12-20T14:30:00Z
     FORMAT_ISO_DATE("yyyyMMdd"), // Example: 20241220
     FORMAT_ISO_ORDINAL_DATE("yyyy-DDD"), // Example: 2024-355
     FORMAT_ISO_WEEK_DATE("yyyy-Www-D"), // Example: 2024-W51-5

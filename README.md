@@ -1,5 +1,6 @@
 # Date Time Utility
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/seleniumbrain/date-time-utils)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.seleniumbrain/date-time-utils.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.seleniumbrain/date-time-utils)
 
 Date Time Utility provides support to handle any date string in multiple ways.
 
@@ -32,7 +33,7 @@ Add the following dependency to your `pom.xml` file:
 <dependency>
     <groupId>io.github.seleniumbrain</groupId>
     <artifactId>date-time-util</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -41,7 +42,12 @@ Add the following dependency to your `pom.xml` file:
 ### Validate Date Strings
 
 ```java
-DateTimeUtils utils = new DateTimeUtils(Locale.US);
+DateTimeUtils.FormatOptions options = DateTimeUtils.FormatOptions.builder()
+        .locale(Locale.US)
+        .zoneId(ZoneId.of("UTC")) // Use the desired time zone
+        .zoneOffset(ZoneOffset.UTC) // Use the desired offset
+        .build();
+DateTimeUtils utils = new DateTimeUtils(options);
 boolean isValid = utils.isValid("2024-12-20 14:30:00");
 System.out.println(isValid); // Output: true
 ```
